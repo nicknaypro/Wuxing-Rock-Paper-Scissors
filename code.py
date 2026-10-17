@@ -1,10 +1,11 @@
-import random
 import time
 import numpy as np
 import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+from game_logic import pick_winner
 
 FINGER_TIPS_LIST = {8, 12, 16, 20} #index, middle, ring, pinky
 MOVE_MAP = {"0000": "Earth", "1111": "Wood", "1010": "Metal", "1001": "Fire", "0111": "Water"}
@@ -18,19 +19,6 @@ def get_move(hand_landmark):
             state += "0"
     return MOVE_MAP.get(state, "N/A") #return N/A if state is not in MOVE_MAP
 
-def pick_winner(player_move):
-    computer_move = random.choice(["Earth", "Wood", "Metal", "Fire", "Water"])
-    if player_move == computer_move:
-        return 0, computer_move #draw
-    elif (player_move == "Metal" and computer_move in ["Wood", "Earth"]) or \
-        (player_move == "Wood" and computer_move in ["Earth", "Water"]) or \
-        (player_move == "Earth" and computer_move in ["Water", "Fire"]) or \
-        (player_move == "Water" and computer_move in ["Fire", "Metal"]) or \
-        (player_move == "Fire" and computer_move in ["Metal", "Wood"]):
-        return 1, computer_move #player wins
-    else:
-        return -1, computer_move #player loses
-
 #put text on screen
 def screen_text(frame, text, position, color):
     cv2.putText(frame, text, position, cv2.FONT_HERSHEY_SIMPLEX, 1, color, 1)
@@ -39,9 +27,7 @@ def start_capture():
     options = vision.HandLandmarkerOptions(
         base_options = python.BaseOptions(model_asset_path="hand_landmarker.task"), 
         running_mode = vision.RunningMode.VIDEO, 
-        num_hands = 1,)
-        #min_hand_detection_confidence = 0.5,
-        #min_tracking_confidence = 0.5)
+        num_hands = 1)
 
     landmarker = vision.HandLandmarker.create_from_options(options)
 
