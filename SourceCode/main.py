@@ -39,7 +39,7 @@ def start_capture():
         frame = cv2.flip(frame, 1) #1 flips the camera horizontally
         mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)) #switch from BGR to RGB for mediapipe
 
-        timestamp_ms = int((time.time() - start_time) * 1000)
+        timestamp_ms = int((time.time() - start_time) * 1000) #elapsed time in ms since start of the capture
         hand_landmarker_result = landmarker.detect_for_video(mp_image, timestamp_ms)
         
         if hand_landmarker_result.hand_landmarks: 
