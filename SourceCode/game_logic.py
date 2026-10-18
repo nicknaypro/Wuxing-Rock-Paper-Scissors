@@ -1,5 +1,6 @@
 import random
 
+#pick the winner based on Wuxing RPS's rule
 def pick_winner(player_move):
     computer_move = random.choice(["Earth", "Wood", "Metal", "Fire", "Water"])
     if player_move == computer_move:
