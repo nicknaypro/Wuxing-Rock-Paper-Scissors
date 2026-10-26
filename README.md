@@ -32,11 +32,10 @@ MediaPipe – Detects and tracks hand landmarks for gesture recognition.
 
 📋 Requirements
 Before running the project, make sure you have:
-Python installed.
-A working webcam.
-The required Python libraries.
-
-The MediaPipe hand landmark model file, hand_landmarker.task, placed in the project directory.
+- Python installed.
+- A working webcam.
+- The required Python libraries.
+- The MediaPipe hand landmark model file, hand_landmarker.task, placed in the project directory.
 
 🚀 Installation and Setup
 1. Clone the repository
